@@ -50,9 +50,9 @@ nav.menu a:hover{color:var(--on-asphalt)}
 @media (max-width:860px){nav.menu{display:none}.logo{width:170px}}
 
 /* герой */
-.hero{position:relative;background:var(--asphalt);color:var(--on-asphalt);padding-block:0;overflow:hidden;display:grid}
-.hero img{grid-area:1/1;width:100%;height:100%;min-height:clamp(320px,52vw,560px);object-fit:cover;object-position:50% 60%;opacity:.62}
-.hero .over{grid-area:1/1;position:relative;display:flex;align-items:flex-end;background:linear-gradient(180deg,rgba(14,15,17,0) 30%,rgba(14,15,17,.88) 100%)}
+.hero{position:relative;background:var(--asphalt);color:var(--on-asphalt);padding-block:0;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;opacity:.62}
+.hero .over{position:relative;min-height:clamp(320px,46vw,560px);display:flex;align-items:flex-end;background:linear-gradient(180deg,rgba(14,15,17,0) 30%,rgba(14,15,17,.88) 100%)}
 .hero .over .wrap{width:100%;padding-block:72px 32px;display:grid;gap:18px}
 .hero h1{font:800 clamp(26px,5.4vw,60px)/1.08 var(--f-display);max-width:16ch;letter-spacing:-.015em}
 .hero h1 em{font-style:normal;color:var(--orange)}
@@ -74,7 +74,11 @@ nav.menu a:hover{color:var(--on-asphalt)}
 .svc p{margin:0;color:var(--muted);font-size:15px}
 
 /* объекты */
-.objects{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+.objects{display:grid;grid-template-columns:repeat(6,1fr);gap:22px}
+.objects .obj{grid-column:span 2}
+.objects .obj:nth-child(-n+2){grid-column:span 3}
+@media (max-width:900px){.objects{grid-template-columns:1fr 1fr}.objects .obj,.objects .obj:nth-child(-n+2){grid-column:auto}.objects .obj:first-child{grid-column:1/-1}}
+@media (max-width:600px){.objects{grid-template-columns:1fr}}
 .obj{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;text-align:left;padding:0;color:inherit;font:inherit}
 .obj .ph{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--asphalt-2)}
 .obj .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
@@ -88,9 +92,9 @@ nav.menu a:hover{color:var(--on-asphalt)}
 .obj .more::after{content:"→";color:var(--orange)}
 
 /* баннер */
-.banner{position:relative;background:var(--asphalt);color:#fff;padding-block:0;overflow:hidden;display:grid}
-.banner img{grid-area:1/1;width:100%;height:100%;min-height:clamp(260px,34vw,420px);object-fit:cover;object-position:50% 60%;opacity:.5}
-.banner .over{grid-area:1/1;position:relative;display:flex;align-items:center}
+.banner{position:relative;background:var(--asphalt);color:#fff;padding-block:0;overflow:hidden}
+.banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;opacity:.32}
+.banner .over{position:relative;min-height:clamp(260px,30vw,400px);display:flex;align-items:center}
 .banner .over .wrap{padding-block:40px}
 .banner .over .wrap{width:100%;display:grid;gap:12px}
 .banner h2{max-width:18ch;border-left:8px solid var(--orange);padding-left:20px}
@@ -98,7 +102,8 @@ nav.menu a:hover{color:var(--on-asphalt)}
 .banner p{margin:0 0 0 28px;max-width:48ch;color:#E2E1DD}
 
 /* техника */
-.fleet{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media (max-width:900px){.fleet{grid-template-columns:repeat(2,1fr)}}
 .unit{display:grid;gap:10px;align-content:start}
 .unit .ph{aspect-ratio:1;border-radius:var(--r);overflow:hidden;background:var(--asphalt-2);border-bottom:4px solid var(--orange)}
 .unit .ph img{width:100%;height:100%;object-fit:cover}
@@ -200,7 +205,7 @@ dialog::backdrop{background:rgba(10,10,12,.82)}
     <p>Техника своя, поэтому сроки не зависят от аренды: от экскаватора до асфальтоукладчика.</p></div>
   <div class="fleet">
     <div class="unit wide"><div class="ph"><img src="t_fa058ca8.jpg" alt="Тандемный каток «Дорожник» на щебёночном основании" style="object-position:50% 45%"></div><h3>Тандемный каток</h3><p>Укатка асфальта и основания</p></div>
-    <div class="unit"><div class="ph"><img src="t_496308af.jpg" alt="Экскаватор Hitachi EX200"></div><h3>Экскаватор Hitachi EX200</h3><p>Земляные работы, выемка грунта</p></div>
+    <div class="unit wide"><div class="ph"><img src="t_496308af.jpg" alt="Экскаватор Hitachi EX200" style="object-position:50% 55%"></div><h3>Экскаватор Hitachi EX200</h3><p>Земляные работы, выемка грунта</p></div>
     <div class="unit"><div class="ph"><img src="t_153f6f07.jpg" alt="Асфальтоукладчик Mitsubishi с надписью «Дорожник»"></div><h3>Асфальтоукладчик Mitsubishi MF55WH</h3><p>Укладка асфальта</p></div>
     <div class="unit"><div class="ph"><img src="t_6ecf5cbb.jpg" alt="Грунтовый каток Sakai SV512D"></div><h3>Каток Sakai SV512D</h3><p>Уплотнение грунта и основания</p></div>
     <div class="unit"><div class="ph"><img src="t_46cfd053.jpg" alt="Комбинированный каток"></div><h3>Комбинированный каток</h3><p>Укатка асфальта</p></div>
