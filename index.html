@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ООО «Дорожник»</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: тёмная «асфальтовая» шапка и подвал, светлое тело с оранжевой разметкой; объекты — карточки с раскрытием этапов */
+:root{
+  --bg:#F3F2EF; --surface:#FFFFFF; --fg:#1B1C1E; --muted:#5E6166; --line:#DEDCD7;
+  --asphalt:#1E2023; --asphalt-2:#2A2D31; --on-asphalt:#F2F1EE; --on-asphalt-muted:#A9ACB1;
+  --orange:#F16724; --orange-ink:#C24D12;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141517; --surface:#1C1E21; --fg:#ECEBE8; --muted:#A3A6AB; --line:#2E3135;
+  --asphalt:#0E0F11; --asphalt-2:#1A1C1F; --orange-ink:#FF8A4C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141517; --surface:#1C1E21; --fg:#ECEBE8; --muted:#A3A6AB; --line:#2E3135;
+  --asphalt:#0E0F11; --asphalt-2:#1A1C1F; --orange-ink:#FF8A4C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--f-body);margin:0}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{text-wrap:balance;margin:0}
+h2{font:800 clamp(26px,4vw,40px)/1.1 var(--f-display);letter-spacing:-.01em}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:3px;background:var(--orange)}
+section{padding-block:72px}
+.sec-head{display:grid;gap:14px;margin-bottom:36px;max-width:720px}
+.sec-head p{margin:0;color:var(--muted)}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+
+/* шапка */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--asphalt)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--asphalt);color:var(--on-asphalt);border-bottom:3px solid var(--orange)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:12px}
+.logo{display:block;width:210px;color:var(--on-asphalt)}
+.logo svg{width:100%;height:auto;display:block}
+nav.menu{display:flex;gap:22px;flex-wrap:wrap}
+nav.menu a{text-decoration:none;font-weight:500;font-size:15px;color:var(--on-asphalt-muted)}
+nav.menu a:hover{color:var(--on-asphalt)}
+.top .call{font:500 14px var(--f-mono);color:var(--on-asphalt);white-space:nowrap}
+@media (max-width:860px){nav.menu{display:none}.logo{width:170px}}
+
+/* герой */
+.hero{position:relative;background:var(--asphalt);color:var(--on-asphalt);padding-block:0;overflow:hidden}
+.hero img{width:100%;height:clamp(320px,52vw,560px);object-fit:cover;object-position:50% 60%;opacity:.62}
+.hero .over{position:absolute;inset:0;display:flex;align-items:flex-end;background:linear-gradient(180deg,rgba(14,15,17,0) 30%,rgba(14,15,17,.88) 100%)}
+.hero .over .wrap{width:100%;padding-block:40px;display:grid;gap:18px}
+.hero h1{font:800 clamp(30px,5.4vw,60px)/1.05 var(--f-display);max-width:16ch;letter-spacing:-.015em}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p{margin:0;max-width:56ch;color:#D9D8D4;font-size:clamp(15px,1.6vw,18px)}
+.hero .btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:var(--r);font:600 15px var(--f-body);text-decoration:none;border:2px solid var(--orange);cursor:pointer}
+.btn.solid{background:var(--orange);color:#1A1A1A}
+.btn.ghost{background:transparent;color:var(--on-asphalt)}
+.btn:hover{filter:brightness(1.08)}
+
+/* разметка-полоса */
+.marking{height:10px;background:repeating-linear-gradient(90deg,var(--orange) 0 56px,transparent 56px 92px)}
+
+/* услуги */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.svc{background:var(--surface);padding:24px;display:grid;gap:8px;align-content:start}
+.svc .n{font:500 12px var(--f-mono);color:var(--muted);letter-spacing:.08em}
+.svc h3{font:600 18px/1.3 var(--f-body)}
+.svc p{margin:0;color:var(--muted);font-size:15px}
+
+/* объекты */
+.objects{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+.obj{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;text-align:left;padding:0;color:inherit;font:inherit}
+.obj .ph{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--asphalt-2)}
+.obj .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.obj:hover .ph img{transform:scale(1.04)}
+.obj .count{position:absolute;right:12px;bottom:12px;background:rgba(14,15,17,.78);color:#fff;font:500 12px var(--f-mono);padding:6px 10px;border-radius:4px}
+.obj .body{padding:18px 20px 22px;display:grid;gap:6px}
+.obj .where{font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--orange-ink)}
+.obj h3{font:700 20px/1.25 var(--f-body)}
+.obj p{margin:0;color:var(--muted);font-size:15px}
+.obj .more{margin-top:6px;font-weight:600;color:var(--fg);display:flex;gap:6px;align-items:center}
+.obj .more::after{content:"→";color:var(--orange)}
+
+/* баннер */
+.banner{position:relative;background:var(--asphalt);color:#fff;padding-block:0;overflow:hidden}
+.banner img{width:100%;height:clamp(260px,34vw,420px);object-fit:cover;object-position:50% 60%;opacity:.5}
+.banner .over{position:absolute;inset:0;display:flex;align-items:center}
+.banner .over .wrap{width:100%;display:grid;gap:12px}
+.banner h2{max-width:18ch;border-left:8px solid var(--orange);padding-left:20px}
+.banner h2 span{color:var(--orange)}
+.banner p{margin:0 0 0 28px;max-width:48ch;color:#E2E1DD}
+
+/* техника */
+.fleet{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.unit{display:grid;gap:10px;align-content:start}
+.unit .ph{aspect-ratio:1;border-radius:var(--r);overflow:hidden;background:var(--asphalt-2);border-bottom:4px solid var(--orange)}
+.unit .ph img{width:100%;height:100%;object-fit:cover}
+.unit h3{font:600 16px/1.3 var(--f-body)}
+.unit p{margin:0;color:var(--muted);font-size:14px}
+.unit.wide{grid-column:span 2}
+.unit.wide .ph{aspect-ratio:2/1}
+@media (max-width:520px){.unit.wide{grid-column:auto}.unit.wide .ph{aspect-ratio:1}}
+
+/* контакты */
+.contacts{background:var(--asphalt);color:var(--on-asphalt)}
+.contacts .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;align-items:start}
+.contacts h2{color:var(--on-asphalt)}
+.contacts dl{margin:0;display:grid;gap:18px}
+.contacts dt{font:500 12px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--on-asphalt-muted)}
+.contacts dd{margin:4px 0 0;font-size:20px;font-weight:600}
+.contacts dd small{display:block;font-size:14px;font-weight:400;color:var(--on-asphalt-muted)}
+.todo{display:inline-block;font:500 12px var(--f-mono);background:var(--orange);color:#1A1A1A;padding:3px 8px;border-radius:3px;vertical-align:middle}
+.contacts .eyebrow{color:var(--orange)}
+footer{background:var(--asphalt);color:var(--on-asphalt-muted);font-size:13px;border-top:1px solid #34373C}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:22px}
+
+/* окно объекта */
+dialog{border:0;padding:0;max-width:min(1100px,96vw);width:100%;max-height:92vh;background:var(--surface);color:var(--fg);border-radius:var(--r)}
+dialog::backdrop{background:rgba(10,10,12,.82)}
+.dlg{display:grid;gap:22px;padding:24px max(16px,3vw) 32px;overflow:auto;max-height:92vh}
+.dlg-head{display:flex;justify-content:space-between;gap:16px;align-items:start}
+.dlg-head h3{font:800 clamp(20px,3vw,30px)/1.15 var(--f-display)}
+.close{background:var(--asphalt);color:#fff;border:0;width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer;flex:none}
+.dlg .lead{margin:0;color:var(--muted);max-width:70ch}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ba figure{margin:0;position:relative}
+.ba img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r)}
+.ba figcaption{position:absolute;left:10px;top:10px;font:500 12px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;background:var(--asphalt);color:#fff;padding:5px 9px;border-radius:3px}
+.ba figure:last-child figcaption{background:var(--orange);color:#1A1A1A}
+@media (max-width:560px){.ba{grid-template-columns:1fr}}
+.dlg h4{margin:0;font:600 14px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--orange-ink)}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:grid;gap:8px;counter-increment:s}
+.steps img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--r)}
+.steps span{font-size:14px;line-height:1.35}
+.steps span::before{content:counter(s) ". ";font-family:var(--f-mono);color:var(--orange-ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head><body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="ООО «Дорожник», на главную"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-24 -24 886 278"><g><path fill="#F16724" fill-rule="evenodd" d="M0.00 180.00 C96.00 97.47 213.89 40.21 338.53 23.37 C247.58 53.68 153.26 104.21 97.68 180.00 Z"/><path fill="currentColor" fill-rule="evenodd" d="M133.05 180.00 C190.32 104.21 267.79 50.32 358.74 20.67 C291.37 60.42 240.84 114.32 212.21 180.00 Z"/><path fill="currentColor" fill-rule="evenodd" d="M242.53 180.00 C254.32 110.95 298.11 57.05 360.42 20.00 C318.32 57.05 304.84 114.32 326.74 180.00 Z"/><path fill="currentColor" fill-rule="evenodd" d="M394.4 26.0 H401.4 V174.0 H394.4 Z"/><path fill="currentColor" fill-rule="evenodd" d="M456.07437294407896 86.7734375C469.02945106907896 86.7734375 479.01968544407896 77.6533203125 479.01968544407896 62.0234375C479.01968544407896 46.361328125 469.02945106907896 37.208984375 456.07437294407896 37.208984375C443.05484169407896 37.208984375 433.09683388157896 46.361328125 433.09683388157896 62.0234375C433.09683388157896 77.5888671875 443.05484169407896 86.7734375 456.07437294407896 86.7734375ZM456.07437294407896 76.654296875C449.17788856907896 76.654296875 444.76284950657896 71.3046875 444.76284950657896 62.0234375C444.76284950657896 52.7099609375 449.17788856907896 47.328125 456.07437294407896 47.328125C462.93863075657896 47.328125 467.35366981907896 52.7099609375 467.35366981907896 62.0234375C467.35366981907896 71.3046875 462.93863075657896 76.654296875 456.07437294407896 76.654296875Z"/><path fill="currentColor" fill-rule="evenodd" d="M505.34878700657896 86.7734375C518.303865131579 86.7734375 528.294099506579 77.6533203125 528.294099506579 62.0234375C528.294099506579 46.361328125 518.303865131579 37.208984375 505.34878700657896 37.208984375C492.32925575657896 37.208984375 482.37124794407896 46.361328125 482.37124794407896 62.0234375C482.37124794407896 77.5888671875 492.32925575657896 86.7734375 505.34878700657896 86.7734375ZM505.34878700657896 76.654296875C498.45230263157896 76.654296875 494.03726356907896 71.3046875 494.03726356907896 62.0234375C494.03726356907896 52.7099609375 498.45230263157896 47.328125 505.34878700657896 47.328125C512.213044819079 47.328125 516.628083881579 52.7099609375 516.628083881579 62.0234375C516.628083881579 71.3046875 512.213044819079 76.654296875 505.34878700657896 76.654296875Z"/><path fill="currentColor" fill-rule="evenodd" d="M554.623201069079 86.7734375C567.578279194079 86.7734375 577.568513569079 77.6533203125 577.568513569079 62.0234375C577.568513569079 46.361328125 567.578279194079 37.208984375 554.623201069079 37.208984375C541.603669819079 37.208984375 531.645662006579 46.361328125 531.645662006579 62.0234375C531.645662006579 77.5888671875 541.603669819079 86.7734375 554.623201069079 86.7734375ZM554.623201069079 76.654296875C547.726716694079 76.654296875 543.311677631579 71.3046875 543.311677631579 62.0234375C543.311677631579 52.7099609375 547.726716694079 47.328125 554.623201069079 47.328125C561.487458881579 47.328125 565.902497944079 52.7099609375 565.902497944079 62.0234375C565.902497944079 71.3046875 561.487458881579 76.654296875 554.623201069079 76.654296875Z"/><path fill="currentColor" fill-rule="evenodd" d="M432.77456825657896 176.3125H443.92495888157896V166.0H473.54116981907896V176.3125H484.69156044407896V156.138671875H479.53531044407896V117.982421875H444.76284950657896L443.11929481907896 138.3173828125C442.15249794407896 150.53125 439.63882606907896 153.9150390625 436.31949013157896 156.138671875H432.77456825657896ZM449.24234169407896 156.138671875C451.56265419407896 152.59375 453.65738075657896 147.501953125 454.46304481907896 138.3173828125L455.36538856907896 127.84375H467.96597450657896V156.138671875Z"/><path fill="currentColor" fill-rule="evenodd" d="M510.69839638157896 166.7734375C523.653474506579 166.7734375 533.643708881579 157.6533203125 533.643708881579 142.0234375C533.643708881579 126.361328125 523.653474506579 117.208984375 510.69839638157896 117.208984375C497.67886513157896 117.208984375 487.72085731907896 126.361328125 487.72085731907896 142.0234375C487.72085731907896 157.5888671875 497.67886513157896 166.7734375 510.69839638157896 166.7734375ZM510.69839638157896 156.654296875C503.80191200657896 156.654296875 499.38687294407896 151.3046875 499.38687294407896 142.0234375C499.38687294407896 132.7099609375 503.80191200657896 127.328125 510.69839638157896 127.328125C517.562654194079 127.328125 521.977693256579 132.7099609375 521.977693256579 142.0234375C521.977693256579 151.3046875 517.562654194079 156.654296875 510.69839638157896 156.654296875Z"/><path fill="currentColor" fill-rule="evenodd" d="M538.413240131579 166.0H550.014802631579V150.466796875H558.006990131579C569.125154194079 150.466796875 576.150544819079 144.1826171875 576.150544819079 134.224609375C576.150544819079 124.2666015625 569.189607319079 117.982421875 558.071443256579 117.982421875H538.413240131579ZM550.014802631579 140.8310546875V127.5859375H557.265779194079C561.906404194079 127.5859375 564.839021381579 130.1318359375 564.839021381579 134.224609375C564.839021381579 138.28515625 561.906404194079 140.8310546875 557.265779194079 140.8310546875Z"/><path fill="currentColor" fill-rule="evenodd" d="M602.157380756579 166.7734375C615.112458881579 166.7734375 625.102693256579 157.6533203125 625.102693256579 142.0234375C625.102693256579 126.361328125 615.112458881579 117.208984375 602.157380756579 117.208984375C589.137849506579 117.208984375 579.179841694079 126.361328125 579.179841694079 142.0234375C579.179841694079 157.5888671875 589.137849506579 166.7734375 602.157380756579 166.7734375ZM602.157380756579 156.654296875C595.260896381579 156.654296875 590.845857319079 151.3046875 590.845857319079 142.0234375C590.845857319079 132.7099609375 595.260896381579 127.328125 602.157380756579 127.328125C609.021638569079 127.328125 613.436677631579 132.7099609375 613.436677631579 142.0234375C613.436677631579 151.3046875 609.021638569079 156.654296875 602.157380756579 156.654296875Z"/><path fill="currentColor" fill-rule="evenodd" d="M666.868318256579 117.982421875H655.266755756579V137.962890625H650.626130756579L640.378083881579 117.982421875H627.487458881579L640.506990131579 141.2822265625L626.971833881579 166.0H639.411287006579L649.401521381579 147.1796875H655.266755756579V166.0H666.868318256579V147.1796875H672.894685444079L682.562654194079 166.0H695.163240131579L681.982576069079 141.1533203125L694.454255756579 117.982421875H681.692537006579L671.798982319079 137.962890625H666.868318256579Z"/><path fill="currentColor" fill-rule="evenodd" d="M698.450349506579 166.0H710.051912006579V146.5029296875H728.324372944079V166.0H739.925935444079V117.982421875H728.324372944079V136.6416015625H710.051912006579V117.982421875H698.450349506579Z"/><path fill="currentColor" fill-rule="evenodd" d="M788.201326069079 166.0V117.982421875H776.213044819079L762.581208881579 139.7998046875C761.453279194079 141.6044921875 759.423005756579 145.2138671875 757.553865131579 148.662109375C757.650544819079 144.859375 757.714997944079 140.9599609375 757.714997944079 138.80078125V117.982421875H746.113435444079V166.0H758.133943256579L770.637849506579 146.01953125C772.023591694079 143.7958984375 774.311677631579 139.8642578125 776.825349506579 135.3525390625C776.631990131579 140.025390625 776.599763569079 143.9892578125 776.599763569079 145.9873046875V166.0Z"/><path fill="currentColor" fill-rule="evenodd" d="M794.388826069079 166.0H805.990388569079V146.4384765625H809.825349506579L824.423982319079 166.0H837.701326069079L818.977693256579 141.25L836.895662006579 117.982421875H823.586091694079L809.760896381579 136.5126953125H805.990388569079V117.982421875H794.388826069079Z"/><path fill="#F16724" fill-rule="evenodd" d="M431.4 202.0 H471.4 V206.0 H431.4 Z"/><path fill="#F16724" fill-rule="evenodd" d="M495.17105263157896 214.3046875C499.79214638157896 214.3046875 503.14370888157896 211.4736328125 503.71499794407896 207.1318359375H499.11929481907896C498.71304481907896 209.1376953125 497.27847450657896 210.318359375 495.24722450657896 210.318359375C492.32730263157896 210.318359375 490.67691200657896 208.1474609375 490.67691200657896 204.5546875C490.67691200657896 200.94921875 492.33999794407896 198.765625 495.24722450657896 198.765625C497.27847450657896 198.765625 498.72574013157896 199.958984375 499.10659950657896 201.9775390625H503.71499794407896C503.15640419407896 197.6357421875 499.79214638157896 194.779296875 495.17105263157896 194.779296875C489.97866981907896 194.779296875 486.08120888157896 198.3720703125 486.08120888157896 204.5546875C486.08120888157896 210.6865234375 489.97866981907896 214.3046875 495.17105263157896 214.3046875Z"/><path fill="#F16724" fill-rule="evenodd" d="M515.3205448190789 214.0H520.2844120065789L521.4396854440789 210.3564453125H528.1555057565789L529.2726932565789 214.0H534.3762088815789L527.8381229440789 195.083984375H521.8205448190789ZM522.5822635690789 206.7890625 522.9250370065789 205.6845703125C523.5851932565789 203.5771484375 524.1945682565789 201.5078125 524.8420291940789 199.1845703125C525.4767948190789 201.5078125 526.0861698190789 203.5771484375 526.7082401315789 205.6845703125L527.0510135690789 206.7890625Z"/><path fill="#F16724" fill-rule="evenodd" d="M545.4358573190789 214.0H550.5901541940789L553.0530448190789 210.3564453125C553.6243338815789 209.5185546875 554.1575370065789 208.693359375 554.6907401315789 207.85546875C555.2239432565789 208.693359375 555.7571463815789 209.5185546875 556.2903495065789 210.3564453125L558.6643729440789 214.0H563.9583182565789L557.2805838815789 204.19921875L563.3108573190789 195.083984375H558.2835135690789L556.4426932565789 197.9404296875C555.8587088815789 198.841796875 555.3001151315789 199.755859375 554.7415213815789 200.6572265625C554.2083182565789 199.755859375 553.6624198190789 198.841796875 553.0911307565789 197.9404296875L551.2757010690789 195.083984375H546.1087088815789L552.2405448190789 204.326171875Z"/><path fill="#F16724" fill-rule="evenodd" d="M575.0179666940788 214.0H579.9818338815788L581.1371073190788 210.3564453125H587.8529276315788L588.9701151315788 214.0H594.0736307565788L587.5355448190788 195.083984375H581.5179666940788ZM582.2796854440788 206.7890625 582.6224588815788 205.6845703125C583.2826151315788 203.5771484375 583.8919901315788 201.5078125 584.5394510690788 199.1845703125C585.1742166940788 201.5078125 585.7835916940788 203.5771484375 586.4056620065788 205.6845703125L586.7484354440788 206.7890625Z"/><path fill="#F16724" fill-rule="evenodd" d="M605.5903104440788 214.0H606.1489041940788C610.0717557565788 214.0 612.5473416940788 212.22265625 613.1313260690788 205.8876953125L613.7533963815788 198.96875H618.2602323190788V214.0H622.8305448190788V195.083984375H609.5385526315788L608.7260526315788 204.8974609375C608.3578885690788 209.2265625 607.9516385690788 210.115234375 606.0981229440788 210.115234375H605.5903104440788Z"/><path fill="#F16724" fill-rule="evenodd" d="M652.7681229440788 214.0V195.083984375H648.0454666940788L642.6753495065788 203.6787109375C642.2310135690788 204.3896484375 641.4312088815788 205.8115234375 640.6948807565788 207.169921875C640.7329666940788 205.671875 640.7583573190788 204.1357421875 640.7583573190788 203.28515625V195.083984375H636.1880448190788V214.0H640.9233963815788L645.8491776315788 206.12890625C646.3950760690788 205.2529296875 647.2964432565788 203.7041015625 648.2866776315788 201.9267578125C648.2105057565788 203.767578125 648.1978104440788 205.3291015625 648.1978104440788 206.1162109375V214.0Z"/><path fill="#F16724" fill-rule="evenodd" d="M666.1256229440787 214.0H670.6959354440787V206.3193359375H677.8941776315787V214.0H682.4644901315787V195.083984375H677.8941776315787V202.4345703125H670.6959354440787V195.083984375H666.1256229440787Z"/></g></svg></a>
+    <nav class="menu" aria-label="Разделы">
+      <a href="#uslugi">Услуги</a><a href="#obekty">Объекты</a><a href="#tehnika">Техника</a><a href="#kontakty">Контакты</a>
+    </nav>
+    <span class="call">8 (4242) 39-00-22</span>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <img src="img/c73a8fd8.jpg" alt="Бригада «Дорожника» и каток на укладке асфальта, улица Новая, Троицкое">
+  <div class="over"><div class="wrap">
+    <span class="eyebrow" style="color:var(--orange)">Дорожное строительство · Сахалин</span>
+    <h1>Дороги и дворы, <em>которые служат</em> годами</h1>
+    <p>Строим и ремонтируем улицы, благоустраиваем дворы жилых комплексов, содержим дороги зимой. Своя техника, свои бригады, работа под ключ — от геодезии до разметки.</p>
+    <div class="btns"><a class="btn solid" href="#obekty">Смотреть объекты</a><a class="btn ghost" href="#kontakty">Связаться</a></div>
+  </div></div>
+</section>
+<div class="marking" aria-hidden="true"></div>
+
+<section id="uslugi"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Услуги</span><h2>Что мы делаем</h2>
+    <p>Весь цикл дорожных работ одной компанией: не нужно искать отдельных подрядчиков на грунт, бордюр и асфальт.</p></div>
+  <div class="services">
+    <div class="svc"><span class="n">01</span><h3>Строительство и ремонт дорог</h3><p>Улицы и проезды с тротуарами: корыто, скальный грунт, щебёночное основание, асфальт в два слоя.</p></div>
+    <div class="svc"><span class="n">02</span><h3>Благоустройство дворов</h3><p>Дорожки, детские и спортивные площадки, мощение плиткой, газоны — для жилых комплексов.</p></div>
+    <div class="svc"><span class="n">03</span><h3>Асфальтирование</h3><p>Укладка асфальтоукладчиком, укатка тандемными и пневмокатками. Дворы, парковки, проезды.</p></div>
+    <div class="svc"><span class="n">04</span><h3>Водоотвод</h3><p>Монтаж бетонных лотков и водоотводных канав, чтобы вода уходила с дороги, а не в основание.</p></div>
+    <div class="svc"><span class="n">05</span><h3>Бортовой камень и плитка</h3><p>Установка бордюров по геодезическим отметкам, укладка тротуарной плитки на песчаную подушку.</p></div>
+    <div class="svc"><span class="n">06</span><h3>Земляные работы</h3><p>Выемка и вывоз грунта, подсыпка, послойное уплотнение с контролем плотности.</p></div>
+    <div class="svc"><span class="n">07</span><h3>Разметка и обустройство</h3><p>Пешеходные переходы, осевая разметка, временные схемы движения на период работ.</p></div>
+    <div class="svc"><span class="n">08</span><h3>Зимнее содержание дорог</h3><p>Очистка от снега отвалами, подсыпка противогололёдными материалами.</p></div>
+  </div>
+</div></section>
+
+<section id="obekty" style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Объекты</span><h2>Наши работы</h2>
+    <p>На карточке — готовый результат. Откройте объект, чтобы увидеть, как шла работа: от первого ковша до готового покрытия.</p></div>
+  <div class="objects" id="objects"></div>
+</div></section>
+
+<section class="banner" aria-label="О качестве покрытия">
+  <img src="img/8bf0867e.jpg" alt="Капли дождя на свежем асфальте">
+  <div class="over"><div class="wrap">
+    <h2>Асфальт, который выдерживает <span>сахалинскую погоду</span></h2>
+    <p>Дождь, снег и перепады температур. Поэтому основание делаем по слоям и уплотняем каждый.</p>
+  </div></div>
+</section>
+
+<section id="tehnika"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Техника</span><h2>Собственный парк</h2>
+    <p>Техника своя, поэтому сроки не зависят от аренды: от экскаватора до асфальтоукладчика.</p></div>
+  <div class="fleet">
+    <div class="unit wide"><div class="ph"><img src="img/t_fa058ca8.jpg" alt="Тандемный каток «Дорожник» на щебёночном основании" style="object-position:50% 45%"></div><h3>Тандемный каток</h3><p>Укатка асфальта и основания</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_496308af.jpg" alt="Экскаватор Hitachi EX200"></div><h3>Экскаватор Hitachi EX200</h3><p>Земляные работы, выемка грунта</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_153f6f07.jpg" alt="Асфальтоукладчик Mitsubishi с надписью «Дорожник»"></div><h3>Асфальтоукладчик Mitsubishi MF55WH</h3><p>Укладка асфальта</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_6ecf5cbb.jpg" alt="Грунтовый каток Sakai SV512D"></div><h3>Каток Sakai SV512D</h3><p>Уплотнение грунта и основания</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_46cfd053.jpg" alt="Комбинированный каток"></div><h3>Комбинированный каток</h3><p>Укатка асфальта</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_1704b59d.jpg" alt="Самосвал КАМАЗ 6520"></div><h3>Самосвал КАМАЗ 6520</h3><p>Перевозка грунта, щебня, асфальта</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_aff463ef.jpg" alt="КАМАЗ с плужным отвалом"></div><h3>КАМАЗ с отвалом</h3><p>Зимняя очистка дорог</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_b476b384.jpg" alt="ГАЗон Next с отвалом и пескоразбрасывателем"></div><h3>ГАЗон Next</h3><p>Отвал и пескоразбрасыватель</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_3f9748f6.jpg" alt="Трактор Беларус 82.1 с отвалом"></div><h3>Трактор «Беларус 82.1»</h3><p>Уборка снега, вспомогательные работы</p></div>
+    <div class="unit"><div class="ph"><img src="img/t_fd420b37.jpg" alt="Автомобиль Isuzu жёлтого цвета"></div><h3>Isuzu <span class="todo">уточнить</span></h3><p>Назначение уточняется</p></div>
+  </div>
+</div></section>
+
+<section class="contacts" id="kontakty"><div class="wrap grid">
+  <div style="display:grid;gap:14px"><span class="eyebrow">Контакты</span><h2>Обсудим ваш объект</h2>
+    <p style="margin:0;color:var(--on-asphalt-muted);max-width:44ch">Приедем на место, посмотрим участок и посчитаем смету. Работаем с застройщиками, управляющими компаниями и муниципальными заказчиками.</p></div>
+  <dl>
+    <div><dt>Адрес</dt><dd>г. Южно-Сахалинск,<br>пер. Энергетиков, 1А <small><a href="https://yandex.ru/maps/?text=%D0%AE%D0%B6%D0%BD%D0%BE-%D0%A1%D0%B0%D1%85%D0%B0%D0%BB%D0%B8%D0%BD%D1%81%D0%BA%2C%20%D0%BF%D0%B5%D1%80.%20%D0%AD%D0%BD%D0%B5%D1%80%D0%B3%D0%B5%D1%82%D0%B8%D0%BA%D0%BE%D0%B2%2C%201%D0%90" target="_blank" rel="noopener">Открыть на Яндекс Картах ↗</a></small></dd></div>
+    <div><dt>Телефон</dt><dd><span style="user-select:all">8 (4242) 39-00-22</span><br><span style="user-select:all">+7 (984) 139-00-22</span></dd></div>
+    <div><dt>Почта</dt><dd><span class="todo">уточнить</span></dd></div>
+  </dl>
+</div></section>
+<footer><div class="wrap"><span>© ООО «Дорожник», Южно-Сахалинск</span><span>Дорожное строительство и благоустройство на Сахалине</span></div></footer>
+
+<dialog id="dlg" aria-labelledby="dlg-title"><div class="dlg" id="dlg-body"></div></dialog>
+
+<script>
+const OBJECTS=[
+ {id:"novaya",title:"Улица Новая",where:"с. Троицкое",cover:"ece8950a",
+  short:"Дорога с тротуарами под ключ: от геодезии до асфальта и разметки.",
+  lead:"Полная реконструкция улицы: выемка старого грунта, скальное основание, бортовой камень, водоотвод, асфальт и тротуары.",
+  before:["1687fecc","Было"],after:["87006449","Стало"],
+  steps:[["06276317","Геодезическая разбивка"],["2c730856","Выемка грунта"],["579c53a8","Завоз скального грунта"],["3dd32dc3","Уплотнение катком"],["2a87a978","Установка бортового камня"],["73118c5e","Водоотвод: бетонные лотки"],["e90f7c96","Щебёночное основание"],["153f6f07","Укладка асфальта"],["be2f1aba","Укатка асфальта"],["767d88d9","Разметка перехода"],["826a9b56","Готовый перекрёсток"],["857446d3","Готовая улица"]]},
+ {id:"gorizont",title:"ЖК «Горизонт»",where:"Южно-Сахалинск, пр. Мира",cover:"7740694e",
+  short:"Всё благоустройство двора: дорожки, площадки, плитка, водоотвод.",
+  lead:"Благоустройство двора жилого комплекса под ключ: земляные работы, водоотвод, бортовой камень, мощение, детские и спортивные площадки.",
+  before:["1d19ec6a","Было"],after:["94694d25","Стало"],
+  steps:[["c244ba70","Земляные работы"],["e0af6e60","Водоотвод, лотки"],["ee6867e5","Бортовой камень"],["88b7a35a","Контроль уплотнения основания"],["fa3d8888","Песчаная подушка, виброплита"],["2d1ab2b1","Укладка плитки"],["acd2c139","Мощение площадки"],["97d9a1df","Готовая площадка"]]},
+ {id:"zelenaya",title:"ЖК «Зелёная планета»",where:"Анивский округ",cover:"b8587c2a",
+  short:"Проезды и дорожки жилого комплекса, асфальт и разметка.",
+  lead:"Дороги и проезды внутри жилого комплекса: основание, бортовой камень, асфальтирование, разметка.",
+  steps:[["69af5905","Щебёночное основание"],["7930faff","Основание дорожек и площадок"],["7e156152","Бортовой камень"],["90bfd035","Укладка асфальта"],["6d231cec","Асфальтирование, вид сверху"],["6bbf8682","Готовый проезд"]]},
+ {id:"dvor",title:"Двор многоквартирных домов",where:"Южно-Сахалинск",cover:"23c03348",todo:true,
+  short:"Асфальтирование дворового проезда и парковки.",
+  lead:"Асфальтирование дворовой территории: проезд, парковка, бортовой камень вдоль газонов.",
+  steps:[["599753aa","Укатка асфальта"],["23c03348","Готовый двор"]]},
+ {id:"boevoy",title:"Улица Боевой Славы",where:"Южно-Сахалинск",cover:"81abf8d4",todo:true,
+  short:"Реконструкция дороги: земляные работы и основание.",
+  lead:"Земляные работы и устройство основания дороги.",
+  steps:[["bbcbfac4","Выемка грунта по отметкам"],["81abf8d4","Техника на участке"],["7c9ddcbe","Уплотнение основания"]]}
+];
+const img=id=>`img/${id}.jpg`;
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const grid=document.getElementById("objects");
+grid.innerHTML=OBJECTS.map(o=>`
+ <button class="obj" type="button" data-id="${o.id}" aria-haspopup="dialog">
+  <div class="ph"><img src="${img(o.cover)}" alt="${esc(o.title)}, готовый результат" loading="lazy"><span class="count">${o.steps.length} этапов</span></div>
+  <div class="body"><span class="where">${esc(o.where)}</span><h3>${esc(o.title)}${o.todo?' <span class="todo">уточнить</span>':''}</h3><p>${esc(o.short)}</p><span class="more">Как шла работа</span></div>
+ </button>`).join("");
+const dlg=document.getElementById("dlg"), body=document.getElementById("dlg-body");
+function openObj(id){
+  const o=OBJECTS.find(x=>x.id===id); if(!o) return;
+  body.innerHTML=`
+   <div class="dlg-head"><div style="display:grid;gap:6px"><span class="eyebrow">${esc(o.where)}</span><h3 id="dlg-title">${esc(o.title)}</h3></div>
+   <button class="close" type="button" aria-label="Закрыть">×</button></div>
+   <p class="lead">${esc(o.lead)}</p>
+   ${o.before?`<div class="ba"><figure><img src="${img(o.before[0])}" alt="До начала работ"><figcaption>Было</figcaption></figure><figure><img src="${img(o.after[0])}" alt="После работ"><figcaption>Стало</figcaption></figure></div>`:`<img src="${img(o.cover)}" alt="${esc(o.title)}" style="width:100%;max-height:520px;object-fit:cover;border-radius:var(--r)">`}
+   <h4>Этапы работ</h4>
+   <ol class="steps">${o.steps.map(([p,t])=>`<li><img src="${img(p)}" alt="${esc(t)}" loading="lazy"><span>${esc(t)}</span></li>`).join("")}</ol>`;
+  body.querySelector(".close").addEventListener("click",()=>dlg.close());
+  dlg.showModal(); body.scrollTop=0;
+}
+grid.addEventListener("click",e=>{const b=e.target.closest(".obj"); if(b) openObj(b.dataset.id)});
+dlg.addEventListener("click",e=>{if(e.target===dlg) dlg.close()});
+</script>
+
+</body></html>
